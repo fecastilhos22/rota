@@ -24,6 +24,14 @@ class _HomeViewState extends State<HomeView> {
     Navigator.pushReplacementNamed(context, '/login');
   }
 
+  Future<void> _sincronizar() async {
+    final mensagem = await _viewModel.sincronizarAtendimentos();
+    if (!mounted) return;
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text(mensagem)));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,6 +42,7 @@ class _HomeViewState extends State<HomeView> {
             icon: const Icon(Icons.refresh),
             onPressed: _viewModel.carregar,
           ),
+          IconButton(icon: const Icon(Icons.cloud_upload), tooltip: 'Sincronizar', onPressed: _sincronizar),
           IconButton(icon: const Icon(Icons.logout), onPressed: _sair),
         ],
       ),
