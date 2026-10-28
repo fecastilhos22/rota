@@ -24,7 +24,7 @@ class HomeViewModel extends ChangeNotifier {
       offline = true;
     }
 
-    chamados = await _repository.listarChamadosAbertos();
+    chamados = await _repository.listarChamadosPorProximidade();
     carregando = false;
     notifyListeners();
   }
