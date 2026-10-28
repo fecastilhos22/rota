@@ -3,6 +3,8 @@ import 'view/home_view.dart';
 import 'view/login_view.dart';
 import 'view/splash_view.dart';
 import 'view/atendimento_view.dart';
+import 'view/historico_view.dart';
+import 'view/detalhe_historico_view.dart';
 
 void main() {
   runApp(const RotaApp());
@@ -23,6 +25,8 @@ class RotaApp extends StatelessWidget {
         '/login': (context) => const LoginView(),
         '/home': (context) => const HomeView(),
         '/atendimento': (context) => const AtendimentoView(),
+        '/historico': (context) => const HistoricoView(),
+        '/detalhe-historico': (context) => const DetalheHistoricoView(),
       },
     );
   }

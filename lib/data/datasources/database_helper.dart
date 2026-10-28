@@ -3,16 +3,14 @@ import 'package:sqflite/sqflite.dart';
 
 import '../models/atendimento_model.dart';
 import '../models/chamado_model.dart';
-
+import '../models/historico_item_model.dart';
 
 class DatabaseHelper {
-  
   static final DatabaseHelper instance = DatabaseHelper._interno();
   DatabaseHelper._interno();
 
   static Database? _banco;
 
-  
   Future<Database> get banco async {
     _banco ??= await _abrirBanco();
     return _banco!;
@@ -24,7 +22,6 @@ class DatabaseHelper {
     return await openDatabase(caminho, version: 1, onCreate: _criarTabelas);
   }
 
-  
   Future<void> _criarTabelas(Database db, int versao) async {
     await db.execute('''
       CREATE TABLE chamados (
@@ -57,7 +54,6 @@ class DatabaseHelper {
     ''');
   }
 
-
   Future<void> salvarChamado(ChamadoModel chamado) async {
     final db = await banco;
     await db.insert(
@@ -87,13 +83,11 @@ class DatabaseHelper {
     );
   }
 
- 
   Future<int> salvarAtendimento(AtendimentoModel atendimento) async {
     final db = await banco;
     return await db.insert('atendimentos', atendimento.toMap());
   }
 
- 
   Future<List<AtendimentoModel>> listarAtendimentosPendentes() async {
     final db = await banco;
     final resultado = await db.query(
@@ -111,8 +105,10 @@ class DatabaseHelper {
     return resultado.map((linha) => AtendimentoModel.fromMap(linha)).toList();
   }
 
-  
-  Future<void> marcarAtendimentoSincronizado(int atendimentoId, {String? fotoUrl}) async {
+  Future<void> marcarAtendimentoSincronizado(
+    int atendimentoId, {
+    String? fotoUrl,
+  }) async {
     final db = await banco;
     await db.update(
       'atendimentos',
@@ -120,5 +116,16 @@ class DatabaseHelper {
       where: 'id = ?',
       whereArgs: [atendimentoId],
     );
+  }
+
+  Future<List<HistoricoItemModel>> listarHistorico() async {
+    final db = await banco;
+    final resultado = await db.rawQuery('''
+      SELECT a.*, c.codigo_cliente, c.nome_cliente
+      FROM atendimentos a
+      LEFT JOIN chamados c ON c.id = a.chamado_id
+      ORDER BY a.id DESC
+    ''');
+    return resultado.map((linha) => HistoricoItemModel.fromMap(linha)).toList();
   }
 }

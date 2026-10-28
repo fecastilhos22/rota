@@ -42,8 +42,17 @@ class _HomeViewState extends State<HomeView> {
             icon: const Icon(Icons.refresh),
             onPressed: _viewModel.carregar,
           ),
-          IconButton(icon: const Icon(Icons.cloud_upload), tooltip: 'Sincronizar', onPressed: _sincronizar),
+          IconButton(
+            icon: const Icon(Icons.cloud_upload),
+            tooltip: 'Sincronizar',
+            onPressed: _sincronizar,
+          ),
           IconButton(icon: const Icon(Icons.logout), onPressed: _sair),
+          IconButton(
+            icon: const Icon(Icons.history),
+            tooltip: 'Histórico',
+            onPressed: () => Navigator.pushNamed(context, '/historico'),
+          ),
         ],
       ),
       body: ListenableBuilder(
