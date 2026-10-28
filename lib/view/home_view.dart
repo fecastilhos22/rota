@@ -30,7 +30,10 @@ class _HomeViewState extends State<HomeView> {
       appBar: AppBar(
         title: const Text('Rota - Chamados'),
         actions: [
-          IconButton(icon: const Icon(Icons.refresh), onPressed: _viewModel.carregar),
+          IconButton(
+            icon: const Icon(Icons.refresh),
+            onPressed: _viewModel.carregar,
+          ),
           IconButton(icon: const Icon(Icons.logout), onPressed: _sair),
         ],
       ),
@@ -62,8 +65,13 @@ class _HomeViewState extends State<HomeView> {
                           return Card(
                             margin: const EdgeInsets.all(8),
                             child: InkWell(
-                              onTap: () {
-                                Navigator.pushNamed(context, '/atendimento', arguments: chamado);
+                              onTap: () async {
+                                await Navigator.pushNamed(
+                                  context,
+                                  '/atendimento',
+                                  arguments: chamado,
+                                );
+                                _viewModel.atualizarLista();
                               },
                               child: Padding(
                                 padding: const EdgeInsets.all(12),
@@ -72,16 +80,22 @@ class _HomeViewState extends State<HomeView> {
                                   children: [
                                     Text(
                                       '${chamado.codigoCliente} - ${chamado.nomeCliente}',
-                                      style: const TextStyle(fontWeight: FontWeight.bold),
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
-                                    Text('Categoria: ${chamado.categoriaInformada}'),
+                                    Text(
+                                      'Categoria: ${chamado.categoriaInformada}',
+                                    ),
                                     Text(chamado.descricaoProblema),
                                     Text(chamado.enderecoCompleto),
                                     Text(
                                       chamado.distanciaKm != null
                                           ? 'Distância: ${chamado.distanciaKm!.toStringAsFixed(1)} km'
                                           : 'Distância: GPS indisponível',
-                                      style: const TextStyle(fontWeight: FontWeight.bold),
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
                                   ],
                                 ),
