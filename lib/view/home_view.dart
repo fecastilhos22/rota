@@ -42,7 +42,6 @@ class _HomeViewState extends State<HomeView> {
           }
           return Column(
             children: [
-              // Aviso de modo offline
               if (_viewModel.offline)
                 Container(
                   width: double.infinity,
@@ -62,19 +61,30 @@ class _HomeViewState extends State<HomeView> {
                           final chamado = _viewModel.chamados[index];
                           return Card(
                             margin: const EdgeInsets.all(8),
-                            child: Padding(
-                              padding: const EdgeInsets.all(12),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    '${chamado.codigoCliente} - ${chamado.nomeCliente}',
-                                    style: const TextStyle(fontWeight: FontWeight.bold),
-                                  ),
-                                  Text('Categoria: ${chamado.categoriaInformada}'),
-                                  Text(chamado.descricaoProblema),
-                                  Text(chamado.enderecoCompleto),
-                                ],
+                            child: InkWell(
+                              onTap: () {
+                                Navigator.pushNamed(context, '/atendimento', arguments: chamado);
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.all(12),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      '${chamado.codigoCliente} - ${chamado.nomeCliente}',
+                                      style: const TextStyle(fontWeight: FontWeight.bold),
+                                    ),
+                                    Text('Categoria: ${chamado.categoriaInformada}'),
+                                    Text(chamado.descricaoProblema),
+                                    Text(chamado.enderecoCompleto),
+                                    Text(
+                                      chamado.distanciaKm != null
+                                          ? 'Distância: ${chamado.distanciaKm!.toStringAsFixed(1)} km'
+                                          : 'Distância: GPS indisponível',
+                                      style: const TextStyle(fontWeight: FontWeight.bold),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           );
