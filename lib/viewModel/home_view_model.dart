@@ -6,7 +6,7 @@ class HomeViewModel extends ChangeNotifier {
   final ChamadoRepository _repository;
 
   HomeViewModel({ChamadoRepository? repository})
-      : _repository = repository ?? ChamadoRepository();
+    : _repository = repository ?? ChamadoRepository();
 
   List<ChamadoModel> chamados = [];
   bool carregando = false;
@@ -16,7 +16,6 @@ class HomeViewModel extends ChangeNotifier {
     carregando = true;
     notifyListeners();
 
-   
     try {
       await _repository.sincronizarChamados();
       offline = false;
@@ -26,6 +25,11 @@ class HomeViewModel extends ChangeNotifier {
 
     chamados = await _repository.listarChamadosPorProximidade();
     carregando = false;
+    notifyListeners();
+  }
+
+  Future<void> atualizarLista() async {
+    chamados = await _repository.listarChamadosPorProximidade();
     notifyListeners();
   }
 }
