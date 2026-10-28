@@ -112,11 +112,11 @@ class DatabaseHelper {
   }
 
   
-  Future<void> marcarAtendimentoSincronizado(int atendimentoId) async {
+  Future<void> marcarAtendimentoSincronizado(int atendimentoId, {String? fotoUrl}) async {
     final db = await banco;
     await db.update(
       'atendimentos',
-      {'sincronizado': 1},
+      {'sincronizado': 1, 'foto_url': fotoUrl},
       where: 'id = ?',
       whereArgs: [atendimentoId],
     );
