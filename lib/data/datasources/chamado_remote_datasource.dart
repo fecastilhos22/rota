@@ -4,8 +4,12 @@ import '../models/chamado_model.dart';
 import 'auth_remote_datasource.dart';
 
 class ChamadoRemoteDatasource {
+  final http.Client _client;
+
+  ChamadoRemoteDatasource({http.Client? client}) : _client = client ?? http.Client();
+
   Future<List<ChamadoModel>> buscarChamados(String token) async {
-    final resposta = await http.get(
+    final resposta = await _client.get(
       Uri.parse('${AuthRemoteDatasource.baseUrl}/chamados'),
       headers: {
         'Authorization': 'Bearer $token',

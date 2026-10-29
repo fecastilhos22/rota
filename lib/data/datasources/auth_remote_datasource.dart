@@ -14,10 +14,14 @@ class LoginResposta {
 class AuthRemoteDatasource {
   static const String baseUrl = 'https://oquetemnomeucosmetico.com.br/api';
 
- 
+  
   static const String _chaveSecreta = r'ISP_TECH_SENAI_2026_xK9#mQ2$vL8!zP4';
 
-  
+  final http.Client _client;
+
+
+  AuthRemoteDatasource({http.Client? client}) : _client = client ?? http.Client();
+
   String gerarHmac(String senha) {
     final chave = utf8.encode(_chaveSecreta);
     final mensagem = utf8.encode(senha);
@@ -26,7 +30,7 @@ class AuthRemoteDatasource {
   }
 
   Future<LoginResposta> login(String email, String senha) async {
-    final resposta = await http.post(
+    final resposta = await _client.post(
       Uri.parse('$baseUrl/login'),
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode({'email': email, 'senha_hmac': gerarHmac(senha)}),
@@ -39,7 +43,7 @@ class AuthRemoteDatasource {
         token: corpo['dados']['token'],
         usuario: UsuarioModel.fromJson(corpo['dados']['usuario']),
       );
-   }
+    }
     throw Exception(corpo['mensagem'] ?? 'Erro ao fazer login');
   }
 }
