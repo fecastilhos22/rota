@@ -31,9 +31,20 @@ class _SplashViewState extends State<SplashView> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.route, size: 90, color: Theme.of(context).colorScheme.primary),
+            Image.asset(
+              'assets/logo.png',
+              height: 100,
+              errorBuilder: (context, erro, pilha) => Icon(
+                Icons.route,
+                size: 90,
+                color: Theme.of(context).colorScheme.primary,
+              ),
+            ),
             const SizedBox(height: 16),
-            const Text('Rota', style: TextStyle(fontSize: 36, fontWeight: FontWeight.bold)),
+            const Text(
+              'Rota',
+              style: TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
+            ),
             const SizedBox(height: 8),
             const Text('Chamados em rota', style: TextStyle(fontSize: 16)),
             const SizedBox(height: 32),
