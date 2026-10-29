@@ -65,7 +65,8 @@ flutter test
 - `feature/*`: uma por tarefa (estrutura-base, models-e-banco, login-splash, home-chamados, gps-proximidade, atendimento, sincronizacao, historico, testes)
 
 ## Telas
-[PRINT: Splash] [PRINT: Login] [PRINT: Home com distância] [PRINT: Home offline] [PRINT: Atendimento] [PRINT: Histórico] [PRINT: Detalhe com foto]
+<img src="docs/splash.png" width="200"> <img src="docs/login.png" width="200"> <img src="docs/home.png" width="200"> <img src="docs/home-offline.png" width="200">
+<img src="docs/atendimento.png" width="200"> <img src="docs/historico.png" width="200"> <img src="docs/detalhe.png" width="200">
 
 ## Vídeo
 [LINK DO VÍDEO]
@@ -73,7 +74,6 @@ flutter test
 ## Melhorias futuras
 - Sincronização automática ao detectar internet
 - Mapa com a rota até o cliente
-- Mais testes de widget e testes de integração
-- Chave da turma fora do código-fonte (variável de ambiente)
+
 
 Projeto final do Módulo 02 - Mobile Flutter - SENAI.
