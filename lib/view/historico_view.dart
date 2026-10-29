@@ -52,8 +52,16 @@ class _HistoricoViewState extends State<HistoricoView> {
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),
-              Text(item.nomeCliente, maxLines: 1, overflow: TextOverflow.ellipsis),
-              Text(atendimento.categoriaTecnico, maxLines: 1, overflow: TextOverflow.ellipsis),
+              Text(
+                item.nomeCliente,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+              Text(
+                atendimento.categoriaTecnico,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
               const SizedBox(height: 6),
               _badge(atendimento.sincronizado == 1),
             ],
@@ -69,7 +77,6 @@ class _HistoricoViewState extends State<HistoricoView> {
       appBar: AppBar(
         title: const Text('Histórico'),
         actions: [
-
           IconButton(
             icon: Icon(_modoGrade ? Icons.view_list : Icons.grid_view),
             onPressed: () {
@@ -93,6 +100,14 @@ class _HistoricoViewState extends State<HistoricoView> {
               ),
             ),
           ),
+          ListenableBuilder(
+            listenable: _viewModel,
+            builder: (context, _) => Text(
+              _viewModel.todosSincronizados
+                  ? 'Tudo sincronizado'
+                  : '${_viewModel.totalPendentes} pendente(s) de envio',
+            ),
+          ),
           Expanded(
             child: ListenableBuilder(
               listenable: _viewModel,
@@ -101,21 +116,26 @@ class _HistoricoViewState extends State<HistoricoView> {
                   return const Center(child: CircularProgressIndicator());
                 }
                 if (_viewModel.itens.isEmpty) {
-                  return const Center(child: Text('Nenhum atendimento encontrado'));
+                  return const Center(
+                    child: Text('Nenhum atendimento encontrado'),
+                  );
                 }
                 if (_modoGrade) {
                   return GridView.builder(
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      childAspectRatio: 1.1,
-                    ),
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          childAspectRatio: 1.1,
+                        ),
                     itemCount: _viewModel.itens.length,
-                    itemBuilder: (context, index) => _card(_viewModel.itens[index]),
+                    itemBuilder: (context, index) =>
+                        _card(_viewModel.itens[index]),
                   );
                 }
                 return ListView.builder(
                   itemCount: _viewModel.itens.length,
-                  itemBuilder: (context, index) => _card(_viewModel.itens[index]),
+                  itemBuilder: (context, index) =>
+                      _card(_viewModel.itens[index]),
                 );
               },
             ),

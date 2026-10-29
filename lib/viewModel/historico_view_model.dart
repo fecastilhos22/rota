@@ -6,10 +6,10 @@ class HistoricoViewModel extends ChangeNotifier {
   final HistoricoRepository _repository;
 
   HistoricoViewModel({HistoricoRepository? repository})
-      : _repository = repository ?? HistoricoRepository();
+    : _repository = repository ?? HistoricoRepository();
 
   List<HistoricoItemModel> _todos = [];
-  List<HistoricoItemModel> itens = []; 
+  List<HistoricoItemModel> itens = [];
   bool carregando = false;
 
   Future<void> carregar() async {
@@ -30,11 +30,19 @@ class HistoricoViewModel extends ChangeNotifier {
       itens = _todos;
     } else {
       itens = _todos
-          .where((item) =>
-              item.atendimento.chamadoId.toString().contains(busca) ||
-              item.codigoCliente.toLowerCase().contains(busca))
+          .where(
+            (item) =>
+                item.atendimento.chamadoId.toString().contains(busca) ||
+                item.codigoCliente.toLowerCase().contains(busca),
+          )
           .toList();
     }
     notifyListeners();
   }
+
+  int get totalPendentes =>
+      _todos.where((item) => item.atendimento.sincronizado == 0).length;
+
+  bool get todosSincronizados =>
+      _todos.every((item) => item.atendimento.sincronizado == 1);
 }
