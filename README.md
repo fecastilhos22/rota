@@ -69,7 +69,7 @@ flutter test
 <img src="docs/atendimento.png" width="200"> <img src="docs/historico.png" width="200"> <img src="docs/detalhe.png" width="200">
 
 ## Vídeo
-[LINK DO VÍDEO]
+https://drive.google.com/file/d/1ulMqVj8R_Emi4CCkspVZY3bgzOtjP_V8/view?usp=sharing
 
 ## Melhorias futuras
 - Sincronização automática ao detectar internet
