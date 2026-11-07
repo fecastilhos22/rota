@@ -18,14 +18,15 @@ Técnicos de provedores de internet atuam em áreas sem sinal (subsolos, garagen
 
 ## Arquitetura (MVVM)
 
-`lib/
-`├── main.dart`
-`├── data/`
-`│   ├── datasources/   (SQLite, API, GPS, foto, armazenamento seguro)`
-`│   ├── repositories/  (regras de onde buscar os dados)`
-`│   └── models/        (Usuario, Chamado, Atendimento, HistoricoItem)`
-`├── viewModel/         (estado das telas, ChangeNotifier)`
-`└── view/              (telas)`
+```lib/
+├── main.dart
+├── data/
+│   ├── datasources/   (SQLite, API, GPS, foto, armazenamento seguro)
+│   ├── repositories/  (regras de onde buscar os dados)
+│   └── models/        (Usuario, Chamado, Atendimento, HistoricoItem)
+├── viewModel/         (estado das telas, ChangeNotifier)
+└── view/              (telas)```
+
 
 A tela conhece só o ViewModel, o ViewModel só o Repository, e o Repository fala com os Datasources.
 
