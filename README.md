@@ -25,7 +25,7 @@ Técnicos de provedores de internet atuam em áreas sem sinal (subsolos, garagen
 │   ├── repositories/  (regras de onde buscar os dados)
 │   └── models/        (Usuario, Chamado, Atendimento, HistoricoItem)
 ├── viewModel/         (estado das telas, ChangeNotifier)
-└── view/              (telas)```
+└── view/              (telas)
 
 
 A tela conhece só o ViewModel, o ViewModel só o Repository, e o Repository fala com os Datasources.
@@ -56,7 +56,7 @@ Flutter e Dart, sqflite, http, crypto (HMAC), flutter_secure_storage, geolocator
 
 ## Testes
 
-```flutter test```
+flutter test
 
 33 testes: models, datasources, repositories e duas telas (login e atendimento).
 
